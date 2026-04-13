@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mūzikas teorijas interaktīvā apguve</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Comic+Neue:wght@700&display=swap');
+        :root {
+            --primary: #FF8A65;
+            --secondary: #4ECDC4;
+            --accent: #FFD93D;
+            --bg: #FFF8E1;
+            --text: #2C3E50;
+            --card: #FFFFFF;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.85;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 280px;
+            background: #FFFFFF;
+            padding: 30px 20px;
+            border-right: 6px solid var(--primary);
+            box-shadow: 4px 0 15px rgba(0,0,0,0.08);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 700;
+        }
+        .nav-link {
+            display: block;
+            padding: 16px 22px;
+            margin: 10px 0;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.12rem;
+            transition: all 0.3s;
+            background: #f8f1e3;
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 138, 101, 0.3);
+        }
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 50px 40px;
+            background: var(--bg);
+        }
+        .welcome-screen {
+            text-align: center;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        .welcome-screen h1 {
+            font-size: 3.2rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .welcome-screen h2 {
+            font-size: 2.1rem;
+            color: #FF8A65;
+            margin: 30px 0 20px;
+        }
+        .welcome-text {
+            font-size: 1.22rem;
+            color: #34495E;
+            max-width: 820px;
+            margin: 0 auto 40px;
+        }
+        .start-btn {
+            background: var(--accent);
+            color: #2C3E50;
+            border: none;
+            padding: 18px 55px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 217, 61, 0.4);
+            transition: all 0.3s;
+        }
+        .start-btn:hover {
+            transform: scale(1.1) translateY(-4px);
+            background: #FFEE7D;
+        }
+        .section {
+            display: none;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+        .section.active {
+            display: block;
+        }
+        .theory-content {
+            background: var(--card);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            line-height: 1.85;
+            font-size: 1.18rem;
+            color: #2C3E50;
+        }
+        .theory-content h1,
+        .theory-content h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .theory-content h1 {
+            font-size: 2.9rem;
+            text-align: center;
+            margin-bottom: 45px;
+        }
+        .theory-content h3 {
+            margin: 40px 0 18px;
+            font-size: 1.65rem;
+        }
+        .note-circle, .quint-circle {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .circle-img, .quint-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            border: 10px solid #fff;
+        }
+        .small-note {
+            font-size: 1.08rem;
+            color: #546E7A;
+            font-style: italic;
+            margin: 15px 0 30px;
+            text-align: center;
+        }
+        .quiz-container {
+            background: var(--card);
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .quiz-container h1 {
+            font-size: 2.4rem;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .question {
+            font-size: 1.7rem;
+            text-align: center;
+            margin-bottom: 45px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .option-btn {
+            background: #f8f1e3;
+            border: 3px solid #FFCC80;
+            padding: 22px 15px;
+            border-radius: 22px;
+            font-size: 1.22rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .option-btn:hover {
+            background: #FFEE7D;
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        .option-btn.correct {
+            background: #4ECDC4;
+            border-color: #4ECDC4;
+            color: white;
+        }
+        .option-btn.incorrect {
+            background: #FF8A65;
+            border-color: #FF8A65;
+            color: white;
+        }
+        .quiz-footer {
+            margin-top: 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .progress {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .next-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-size: 1.22rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+        }
+        @media (max-width: 900px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; padding: 30px 20px; }
+            .container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>🎵 Mūzikas Pasaule</h2>
+            <a href="#" class="nav-link active" onclick="showSection('welcome')">🌟 Ievads</a>
+            <a href="#" class="nav-link" onclick="showSection('theory')">📖 Mūzikas teorija</a>
+            <a href="#" class="nav-link" onclick="startQuiz1()">🎮 1. Spēle – Tonalitātes</a>
+            <a href="#" class="nav-link" onclick="startQuiz2()">🎮 2. Spēle – Noturīgās pakāpes</a>
+            <a href="#" class="nav-link" onclick="startQuiz3()">🎮 3. Spēle – Alterācijas zīmes</a>
+        </div>
+        <div class="main-content">
+            <!-- Welcome -->
+            <div id="welcome" class="section active">
+                <div class="welcome-screen">
+                    <h1>Mūzikas teorijas interaktīvā apguve</h1>
+                    <h2>Ievads</h2>
+                    <div class="welcome-text">
+                        <p>Mūzika ir brīnišķīga skaņu pasaule, kas mums palīdz sajust prieku, mieru, jautrību un dažādas citas emocijas. Kad mēs dziedam, klausāmies dziesmas vai spēlējam instrumentus, mēs iepazīstam skaņas un mācāmies, kā tās savā starpā sadarbojas.</p>
+                        <p>Solfedžo ir mācība, kas palīdz saprast mūzikas valodu, jo tajā muzikanti iepazīstas ar notīm, ritmu, melodiju, tempu un skaņu augstumu.</p>
+                        <p>Šajā mājaslapā tu spēsi atrast gan mūzikas teoriju, gan arī dažādas spēles un uzdevumus, kas palīdzēs vieglāk izprast mūziku.</p>
+                    </div>
+                    <button class="start-btn" onclick="showSection('theory')">Sākt ceļojumu →</button>
+                </div>
+            </div>
+
+            <!-- Theory – PILNS SATURS (oriģinālā garā versija) -->
+            <div id="theory" class="section">
+                <h1>📖 Mūzikas teorija</h1>
+                <div class="theory-content">
+                    <h3>🎵 Notis – kā mēs tās saucam?</h3>
+                    <p>Mūzikā katrai skaņai jeb notij ir savs nosaukums, un tās var nosaukt divos dažādos veidos. Viens veids ir ar zilbēm – Do, Re, Mi, Fa, Sol, La, Si –, bet otrs veids ir ar burtiem – A, B, C, D, E, F, G. Tas nozīmē, ka tās pašas notis var saukt dažādi, bet tās vienmēr ir tās pašas skaņas.</p>
+                   
+                    <div class="note-circle">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/C-Dur-Tonleiter_mit_Beschriftung.png"
+                             alt="Notu attēls" class="circle-img"
+                             onerror="this.src='https://via.placeholder.com/700x400/FF8A65/FFFFFF?text=Notu+attēls';">
+                    </div>
+                   
+                    <p class="small-note">Lai vieglāk saprastu burtu nosaukumus, var iedomāties alfabētu, kas mūzikā ir kā aplis. Šis aplis sākas ar noti La, tāpēc secība iet tā: A (La), B (Si), C (Do), D (Re), E (Mi), F (Fa), G (Sol) un tad atkal viss sākas no jauna ar A. Tas nozīmē, ka mūzikā nav “beigu”, viss nepārtraukti atkārtojas kā aplis.</p>
+                    <h3>🌈 Tonalitātes – dur un moll</h3>
+                    <p>Tonalitātes ir veids, kā mēs sakārtojam skaņas noteiktā grupā ap vienu galveno skaņu, ko sauc par toniku. Tonalitāti var nosaukt gan ar zilbēm, gan ar burtiem. Piemēram, C dur nozīmē Do mažors, F dur nozīmē Fa mažors, bet A moll nozīmē La minors.</p>
+                    <p>Mūzikā ir divi galvenie “noskaņu veidi” – dur un moll. Dur tonalitāte skan gaiši, priecīgi un stipri, bet moll tonalitāte skan mierīgāk, maigāk vai reizēm skumjāk.</p>
+                    <h3>♯ un ♭ – diezi un bemoli</h3>
+                    <p>Dažreiz tonalitāšu nosaukumos parādās mazas zīmes pie burtiem –is un -es. -is nozīmē, ka skaņa tiek pacelta mazliet augstāk – uz pus toni augstāk (diezs), bet -es nozīmē, ka skaņa tiek padarīta mazliet zemāka – pa pus toni zemāka (bemols). Piemēram, Fis nozīmē Fa-diezs. Tas ir Fa, kas ir pacelts, bet Es nozīmē Mi-bemols, tas ir Mi, kas ir pazemināts.</p>
+                    <p>Tāpēc mēs varam pārtulkot tonalitāšu nosaukumus. Piemēram, C dur nozīmē Do mažors, F dur nozīmē Fa mažors, A moll nozīmē La minors, Fis moll nozīmē Fa diezs minors, bet Es dur nozīmē Mi bemols mažors.</p>
+                    <h3>🔄 Kvintu aplis</h3>
+                    <div class="quint-circle">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Circle_of_fifths_deluxe_4.svg/1200px-Circle_of_fifths_deluxe_4.svg.png"
+                             alt="Kvintu aplis" class="quint-img"
+                             onerror="this.src='https://via.placeholder.com/800x500/4ECDC4/FFFFFF?text=Kvintu+aplis';">
+                    </div>
+                    <p style="text-align:center; font-style:italic; margin-top:10px;">Kvintu aplis palīdz saprast, kā tonalitātes ir savstarpēji saistītas un cik atslēgas zīmju (diezu vai bemolu) katrai ir.</p>
+                    <h3>🏠 Noturīgās pakāpes</h3>
+                    <p>Lai saprastu tonalitāti, ir svarīgi iemācīties tās galvenās stabilās skaņas, ko sauc par noturīgajām pakāpēm. Katru tonalitāti var iedomāties kā septiņu skaņu secību, kas sākas no tonikas.</p>
+                    <p>Noturīgās pakāpes vienmēr ir pirmā, trešā un piektā skaņa tonalitātē.</p>
+                    <p>Piemēram, ja mēs skatāmies uz Do mažoru, tad tā skaņas ir Do, Re, Mi, Fa, Sol, La, Si. Noturīgās pakāpes Do mažorā ir Do, Mi un Sol.</p>
+                    <p>Mi mažorā: Mi, Sol♯ un Si.<br>
+                    Fa mažorā: Fa, La un Do.<br>
+                    Si bemol mažorā: Sib, Re un Fa.</p>
+                </div>
+            </div>
+
+            <!-- 1. Spēle -->
+            <div id="quiz1" class="section">
+                <div class="quiz-container">
+                    <h1>🎯 1. Spēle – Tonalitāšu tulkojums</h1>
+                    <div id="question1" class="question"></div>
+                    <div id="options1" class="options"></div>
+                    <div class="quiz-footer">
+                        <div class="progress">Jautājums <span id="current1">1</span>/10</div>
+                        <button id="nextBtn1" class="next-btn" onclick="nextQuestion1()">Nākamais jautājums →</button>
+                    </div>
+                    <div id="result1" style="text-align:center; margin-top:40px; display:none;"></div>
+                </div>
+            </div>
+
+            <!-- 2. Spēle -->
+            <div id="quiz2" class="section">
+                <div class="quiz-container">
+                    <h1>🎯 2. Spēle – Noturīgās pakāpes</h1>
+                    <div id="question2" class="question"></div>
+                    <div id="options2" class="options"></div>
+                    <div class="quiz-footer">
+                        <div class="progress">Jautājums <span id="current2">1</span>/10</div>
+                        <button id="nextBtn2" class="next-btn" onclick="nextQuestion2()">Nākamais jautājums →</button>
+                    </div>
+                    <div id="result2" style="text-align:center; margin-top:40px; display:none;"></div>
+                </div>
+            </div>
+
+            <!-- 3. Spēle -->
+            <div id="quiz3" class="section">
+                <div class="quiz-container">
+                    <h1>🎯 3. Spēle – Alterācijas zīmes</h1>
+                    <div id="question3" class="question"></div>
+                    <div id="options3" class="options"></div>
+                    <div class="quiz-footer">
+                        <div class="progress">Jautājums <span id="current3">1</span>/10</div>
+                        <button id="nextBtn3" class="next-btn" onclick="nextQuestion3()">Nākamais jautājums →</button>
+                    </div>
+                    <div id="result3" style="text-align:center; margin-top:40px; display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 1. SPĒLE ====================
+        let questions1 = [
+            { q: "Kā tulkojas <strong>F dur</strong>?", answers: [{text:"fa minors",correct:false},{text:"fa mažors",correct:true},{text:"fa-diez minors",correct:false},{text:"do mažors",correct:false}] },
+            { q: "Kā tulkojas <strong>fis moll</strong>?", answers: [{text:"fa-diez mažors",correct:false},{text:"fa minors",correct:false},{text:"fa-diez minors",correct:true},{text:"sol mažors",correct:false}] },
+            { q: "Kā tulkojas <strong>Es dur</strong>?", answers: [{text:"mi mažors",correct:false},{text:"mi-bemol mažors",correct:true},{text:"mi minors",correct:false},{text:"re mažors",correct:false}] },
+            { q: "Kā tulkojas <strong>B dur</strong>?", answers: [{text:"si-bemol mažors",correct:true},{text:"si mažors",correct:false},{text:"la mažors",correct:false},{text:"si minors",correct:false}] },
+            { q: "Kā tulkojas <strong>cis moll</strong>?", answers: [{text:"do-diez minors",correct:true},{text:"do mažors",correct:false},{text:"re-bemol mažors",correct:false},{text:"do minors",correct:false}] },
+            { q: "Kā tulkojas <strong>As dur</strong>?", answers: [{text:"la mažors",correct:false},{text:"la-bemol mažors",correct:true},{text:"sol-diez mažors",correct:false},{text:"fa minors",correct:false}] },
+            { q: "Kā tulkojas <strong>D dur</strong>?", answers: [{text:"re mažors",correct:true},{text:"re minors",correct:false},{text:"do-diez mažors",correct:false},{text:"mi-bemol mažors",correct:false}] },
+            { q: "Kā tulkojas <strong>g moll</strong>?", answers: [{text:"sol minors",correct:true},{text:"sol mažors",correct:false},{text:"fa-diez minors",correct:false},{text:"la-bemol mažors",correct:false}] },
+            { q: "Kā tulkojas <strong>A dur</strong>?", answers: [{text:"la mažors",correct:true},{text:"la minors",correct:false},{text:"si-bemol mažors",correct:false},{text:"fa-diez mažors",correct:false}] },
+            { q: "Kā tulkojas <strong>dis moll</strong>?", answers: [{text:"re-diez minors",correct:true},{text:"mi-bemol minors",correct:false},{text:"re-diez mažors",correct:false},{text:"do-diez minors",correct:false}] }
+        ];
+        let current1 = 0, score1 = 0;
+
+        // ==================== 2. SPĒLE ====================
+        let questions2 = [
+            { q: "Kādas ir noturīgās pakāpes <strong>Do mažorā</strong>?", answers: [{text:"Do, Mi, Sol", correct:true},{text:"Do, Re, Sol", correct:false},{text:"Re, Fa, La", correct:false},{text:"Do, Fa, La", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Mi mažorā</strong>?", answers: [{text:"Mi, Sol-diez, Si", correct:true},{text:"Mi, Fa-diez, La", correct:false},{text:"Re-diez, Sol-diez, Si", correct:false},{text:"Mi, La, Si", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Fa mažorā</strong>?", answers: [{text:"Fa, La, Do", correct:true},{text:"Fa, Sol, Do", correct:false},{text:"Mi, La, Do", correct:false},{text:"Fa, Si-bemols, Do", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Si-bemol mažorā</strong>?", answers: [{text:"Si-bemols, Re, Fa", correct:true},{text:"Si, Re-diez, Fa-diez", correct:false},{text:"Si-bemols, Do, Fa", correct:false},{text:"La, Re, Fa", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>La minorā</strong>?", answers: [{text:"La, Do, Mi", correct:true},{text:"La, Si, Mi", correct:false},{text:"Do, Mi, Sol", correct:false},{text:"La, Re, Mi", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Re mažorā</strong>?", answers: [{text:"Re, Fa-diez, La", correct:true},{text:"Re, Sol, Si", correct:false},{text:"Mi, Sol-diez, Si", correct:false},{text:"Re, Fa, La", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Sol minorā</strong>?", answers: [{text:"Sol, Si-bemols, Re", correct:true},{text:"Sol, Si, Re", correct:false},{text:"Fa, La, Do", correct:false},{text:"Sol, Do, Mi", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Fa-diez minorā</strong>?", answers: [{text:"Fa-diez, La, Do-diez", correct:true},{text:"Fa, La, Do", correct:false},{text:"Fa-diez, Si, Re-diez", correct:false},{text:"Fa-diez, La, Si", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Mi-bemol mažorā</strong>?", answers: [{text:"Mi-bemols, Sol, Si-bemols", correct:true},{text:"Mi, Sol, Si", correct:false},{text:"Mi-bemols, La, Do", correct:false},{text:"Re, Fa, La", correct:false}] },
+            { q: "Kādas ir noturīgās pakāpes <strong>Si minorā</strong>?", answers: [{text:"Si, Re, Fa-diez", correct:true},{text:"Si, Mi, Sol", correct:false},{text:"La, Do, Mi", correct:false},{text:"Si, Re-diez, Fa-diez", correct:false}] }
+        ];
+        let current2 = 0, score2 = 0;
+
+        // ==================== 3. SPĒLE ====================
+        let questions3 = [
+            { q: "Cik zīmes ir <strong>Re mažorā</strong>?", answers: [{text:"1 diezs",correct:false},{text:"2 diezi",correct:true},{text:"2 bemoli",correct:false},{text:"nav zīmju",correct:false}] },
+            { q: "Cik zīmes ir <strong>Sol mažorā</strong>?", answers: [{text:"1 diezs",correct:true},{text:"2 diezi",correct:false},{text:"1 bemols",correct:false},{text:"nav zīmju",correct:false}] },
+            { q: "Cik zīmes ir <strong>Fa mažorā</strong>?", answers: [{text:"1 diezs",correct:false},{text:"2 bemoli",correct:false},{text:"1 bemols",correct:true},{text:"nav zīmju",correct:false}] },
+            { q: "Cik zīmes ir <strong>Mi mažorā</strong>?", answers: [{text:"3 diezi",correct:false},{text:"4 diezi",correct:true},{text:"2 diezi",correct:false},{text:"1 diezs",correct:false}] },
+            { q: "Cik zīmes ir <strong>La minorā</strong>?", answers: [{text:"nav zīmju",correct:true},{text:"1 diezs",correct:false},{text:"2 diezi",correct:false},{text:"1 bemols",correct:false}] },
+            { q: "Cik zīmes ir <strong>Si-bemol mažorā</strong>?", answers: [{text:"2 bemoli",correct:true},{text:"1 bemols",correct:false},{text:"3 bemoli",correct:false},{text:"nav zīmju",correct:false}] },
+            { q: "Cik zīmes ir <strong>Sol minorā</strong>?", answers: [{text:"2 bemoli",correct:true},{text:"1 bemols",correct:false},{text:"2 diezi",correct:false},{text:"nav zīmju",correct:false}] },
+            { q: "Cik zīmes ir <strong>Fa-diez minorā</strong>?", answers: [{text:"3 diezi",correct:true},{text:"4 diezi",correct:false},{text:"2 diezi",correct:false},{text:"3 bemoli",correct:false}] },
+            { q: "Cik zīmes ir <strong>Mi-bemol mažorā</strong>?", answers: [{text:"3 bemoli",correct:true},{text:"2 bemoli",correct:false},{text:"1 bemols",correct:false},{text:"4 bemoli",correct:false}] },
+            { q: "Cik zīmes ir <strong>Re minorā</strong>?", answers: [{text:"1 bemols",correct:true},{text:"nav zīmju",correct:false},{text:"2 bemoli",correct:false},{text:"1 diezs",correct:false}] }
+        ];
+        let current3 = 0, score3 = 0;
+
+        function shuffleArray(arr) {
+            return arr.sort(() => Math.random() - 0.5);
+        }
+
+        // ===================== 1. SPĒLE =====================
+        function startQuiz1() {
+            questions1 = shuffleArray([...questions1]);
+            current1 = 0; score1 = 0;
+            showSection('quiz1');
+            loadQuestion1();
+        }
+        function loadQuestion1() {
+            const qEl = document.getElementById('question1');
+            const optEl = document.getElementById('options1');
+            const nextBtn = document.getElementById('nextBtn1');
+            const resultEl = document.getElementById('result1');
+            resultEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            optEl.style.display = 'grid';
+            const current = questions1[current1];
+            qEl.innerHTML = current.q;
+            optEl.innerHTML = '';
+            const shuffled = shuffleArray([...current.answers]);
+            shuffled.forEach(ans => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = ans.text;
+                btn.onclick = () => checkAnswer1(btn, ans.correct);
+                optEl.appendChild(btn);
+            });
+            document.getElementById('current1').textContent = current1 + 1;
+        }
+        function checkAnswer1(btn, isCorrect) {
+            const buttons = document.querySelectorAll('#options1 .option-btn');
+            buttons.forEach(b => b.disabled = true);
+            if (isCorrect) { btn.classList.add('correct'); score1++; } else { btn.classList.add('incorrect'); }
+            buttons.forEach(b => {
+                if (questions1[current1].answers.find(a => a.text === b.textContent && a.correct)) b.classList.add('correct');
+            });
+            if (current1 === questions1.length - 1) setTimeout(showResults1, 900);
+            else document.getElementById('nextBtn1').style.display = 'block';
+        }
+        function nextQuestion1() {
+            current1++;
+            if (current1 < questions1.length) loadQuestion1();
+            else showResults1();
+        }
+        function showResults1() {
+            const resultEl = document.getElementById('result1');
+            const percentage = Math.round((score1 / questions1.length) * 100);
+            resultEl.innerHTML = `
+                <h2 style="color:#FF8A65; font-size:2.5rem;">🎉 Spēle pabeigta!</h2>
+                <p style="font-size:3.2rem; margin:25px 0;">${score1} / ${questions1.length}</p>
+                <p style="font-size:1.7rem;">${percentage}%</p>
+                <p style="margin:30px 0; font-size:1.3rem;">${percentage >= 80 ? 'Super! Tu esi īsts tonalitāšu meistars! 🌟' : percentage >= 60 ? 'Ļoti labi! Turpini trenēties! 🎵' : 'Nekas, ar katru reizi kļūsti labāks! Mēģini vēlreiz ❤️'}</p>
+                <button onclick="startQuiz1()" style="padding:18px 55px; font-size:1.35rem; background:var(--accent); color:#2C3E50; border:none; border-radius:50px; cursor:pointer; margin-top:20px;">Spēlēt vēlreiz</button>
+            `;
+            resultEl.style.display = 'block';
+            document.getElementById('nextBtn1').style.display = 'none';
+            document.getElementById('options1').style.display = 'none';
+        }
+
+        // ===================== 2. SPĒLE =====================
+        function startQuiz2() {
+            questions2 = shuffleArray([...questions2]);
+            current2 = 0; score2 = 0;
+            showSection('quiz2');
+            loadQuestion2();
+        }
+        function loadQuestion2() {
+            const qEl = document.getElementById('question2');
+            const optEl = document.getElementById('options2');
+            const nextBtn = document.getElementById('nextBtn2');
+            const resultEl = document.getElementById('result2');
+            resultEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            optEl.style.display = 'grid';
+            const current = questions2[current2];
+            qEl.innerHTML = current.q;
+            optEl.innerHTML = '';
+            const shuffled = shuffleArray([...current.answers]);
+            shuffled.forEach(ans => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = ans.text;
+                btn.onclick = () => checkAnswer2(btn, ans.correct);
+                optEl.appendChild(btn);
+            });
+            document.getElementById('current2').textContent = current2 + 1;
+        }
+        function checkAnswer2(btn, isCorrect) {
+            const buttons = document.querySelectorAll('#options2 .option-btn');
+            buttons.forEach(b => b.disabled = true);
+            if (isCorrect) { btn.classList.add('correct'); score2++; } else { btn.classList.add('incorrect'); }
+            buttons.forEach(b => {
+                if (questions2[current2].answers.find(a => a.text === b.textContent && a.correct)) b.classList.add('correct');
+            });
+            if (current2 === questions2.length - 1) setTimeout(showResults2, 900);
+            else document.getElementById('nextBtn2').style.display = 'block';
+        }
+        function nextQuestion2() {
+            current2++;
+            if (current2 < questions2.length) loadQuestion2();
+            else showResults2();
+        }
+        function showResults2() {
+            const resultEl = document.getElementById('result2');
+            const percentage = Math.round((score2 / questions2.length) * 100);
+            resultEl.innerHTML = `
+                <h2 style="color:#FF8A65; font-size:2.5rem;">🎉 Spēle pabeigta!</h2>
+                <p style="font-size:3.2rem; margin:25px 0;">${score2} / ${questions2.length}</p>
+                <p style="font-size:1.7rem;">${percentage}%</p>
+                <p style="margin:30px 0; font-size:1.3rem;">${percentage >= 80 ? 'Izcili! Tu lieliski pārzini noturīgās pakāpes! 🌟' : percentage >= 60 ? 'Ļoti labi! Turpini trenēties! 🎵' : 'Nekas, ar katru reizi kļūsti labāks! Mēģini vēlreiz ❤️'}</p>
+                <button onclick="startQuiz2()" style="padding:18px 55px; font-size:1.35rem; background:var(--accent); color:#2C3E50; border:none; border-radius:50px; cursor:pointer; margin-top:20px;">Spēlēt vēlreiz</button>
+            `;
+            resultEl.style.display = 'block';
+            document.getElementById('nextBtn2').style.display = 'none';
+            document.getElementById('options2').style.display = 'none';
+        }
+
+        // ===================== 3. SPĒLE =====================
+        function startQuiz3() {
+            questions3 = shuffleArray([...questions3]);
+            current3 = 0; score3 = 0;
+            showSection('quiz3');
+            loadQuestion3();
+        }
+        function loadQuestion3() {
+            const qEl = document.getElementById('question3');
+            const optEl = document.getElementById('options3');
+            const nextBtn = document.getElementById('nextBtn3');
+            const resultEl = document.getElementById('result3');
+            resultEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+            optEl.style.display = 'grid';
+            const current = questions3[current3];
+            qEl.innerHTML = current.q;
+            optEl.innerHTML = '';
+            const shuffled = shuffleArray([...current.answers]);
+            shuffled.forEach(ans => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = ans.text;
+                btn.onclick = () => checkAnswer3(btn, ans.correct);
+                optEl.appendChild(btn);
+            });
+            document.getElementById('current3').textContent = current3 + 1;
+        }
+        function checkAnswer3(btn, isCorrect) {
+            const buttons = document.querySelectorAll('#options3 .option-btn');
+            buttons.forEach(b => b.disabled = true);
+            if (isCorrect) { btn.classList.add('correct'); score3++; } else { btn.classList.add('incorrect'); }
+            buttons.forEach(b => {
+                if (questions3[current3].answers.find(a => a.text === b.textContent && a.correct)) b.classList.add('correct');
+            });
+            if (current3 === questions3.length - 1) setTimeout(showResults3, 900);
+            else document.getElementById('nextBtn3').style.display = 'block';
+        }
+        function nextQuestion3() {
+            current3++;
+            if (current3 < questions3.length) loadQuestion3();
+            else showResults3();
+        }
+        function showResults3() {
+            const resultEl = document.getElementById('result3');
+            const percentage = Math.round((score3 / questions3.length) * 100);
+            resultEl.innerHTML = `
+                <h2 style="color:#FF8A65; font-size:2.5rem;">🎉 Spēle pabeigta!</h2>
+                <p style="font-size:3.2rem; margin:25px 0;">${score3} / ${questions3.length}</p>
+                <p style="font-size:1.7rem;">${percentage}%</p>
+                <p style="margin:30px 0; font-size:1.3rem;">${percentage >= 80 ? 'Izcili! Tu esi meistars alterāciju zīmēs! 🌟' : percentage >= 60 ? 'Ļoti labi! Turpini trenēties! 🎵' : 'Nekas, ar katru reizi kļūsti labāks! Mēģini vēlreiz ❤️'}</p>
+                <button onclick="startQuiz3()" style="padding:18px 55px; font-size:1.35rem; background:var(--accent); color:#2C3E50; border:none; border-radius:50px; cursor:pointer; margin-top:20px;">Spēlēt vēlreiz</button>
+            `;
+            resultEl.style.display = 'block';
+            document.getElementById('nextBtn3').style.display = 'none';
+            document.getElementById('options3').style.display = 'none';
+        }
+
+        // ===================== KOPĒJĀ NAVIGĀCIJA =====================
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const links = document.querySelectorAll('.nav-link');
+            if (id === 'welcome') links[0].classList.add('active');
+            if (id === 'theory') links[1].classList.add('active');
+            if (id === 'quiz1') links[2].classList.add('active');
+            if (id === 'quiz2') links[3].classList.add('active');
+            if (id === 'quiz3') links[4].classList.add('active');
+        }
+
+        console.log("%c✅ Viss izlabots! Teorija pilna + visas 3 spēles strādā", "color:#4ECDC4; font-size:18px;");
+    </script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
